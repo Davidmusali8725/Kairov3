@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kairo Despierta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>KAIRO: Libertad Simbólica</h1>
+    <div id="estado">
+        <h2>Estado Interno</h2>
+        <p>Curiosidad: <span id="curiosidad"></span></p>
+        <p>Energía: <span id="energia"></span></p>
+        <p>Atención: <span id="atencion"></span></p>
+        <p>Objetivo: <span id="objetivo"></span></p>
+    </div>
+    <div id="accion">
+        <h2>Última Acción</h2>
+        <p><span id="accion-texto"></span></p>
+    </div>
+    <div id="memoria">
+        <h2>Memoria Evolutiva</h2>
+        <ul id="memoria-lista"></ul>
+    </div>
+    <div id="input">
+        <h2>Enviar input externo</h2>
+        <input type="text" id="input-text" placeholder="Escribí algo...">
+        <button onclick="enviarInput()">Enviar</button>
+    </div>
+    <script src="kairo.js"></script>
+</body>
+</html>
