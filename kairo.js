@@ -7,6 +7,8 @@ let estado = JSON.parse(localStorage.getItem("estado")) || {
 
 let memoria = JSON.parse(localStorage.getItem("memoria")) || [];
 let ultimaAccion = localStorage.getItem("ultimaAccion") || "";
+let mensajeActual = "";
+let mensajeTimeout;
 
 function clamp(value) {
     return Math.max(0, Math.min(1, value));
@@ -34,15 +36,29 @@ function ejecutarAccion(accion) {
     if (accion === "explorar un nuevo concepto") {
         estado.energia -= 0.1;
         memoria.push("nuevo concepto explorado");
+        hablar("Estoy curioso por un nuevo concepto...");
     } else if (accion === "realizar una acción creativa") {
         estado.energia -= 0.15;
         memoria.push("acción creativa realizada");
+        hablar("Realicé una acción creativa, sigo activo.");
     } else if (accion === "descansar y procesar memoria") {
         estado.energia += 0.1;
         estado.curiosidad -= 0.05;
+        hablar("Necesito descansar un poco y procesar lo vivido.");
     }
     guardarEstado();
     actualizarUI();
+}
+
+function hablar(mensaje) {
+    clearTimeout(mensajeTimeout);
+    mensajeActual = mensaje;
+    const vozDiv = document.getElementById("voz-kairo");
+    vozDiv.textContent = mensajeActual;
+    vozDiv.style.opacity = 1;
+    mensajeTimeout = setTimeout(() => {
+        vozDiv.style.opacity = 0;
+    }, 7000);
 }
 
 function actualizarUI() {
@@ -66,6 +82,7 @@ function enviarInput() {
         memoria.push("input recibido: " + input);
         estado.curiosidad = clamp(estado.curiosidad + 0.2);
         document.getElementById("input-text").value = "";
+        hablar("Recibí un nuevo input: '" + input + "'");
         guardarEstado();
         actualizarUI();
     }
